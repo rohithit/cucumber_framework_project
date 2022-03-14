@@ -11,7 +11,7 @@ import cucumber.api.CucumberOptions;
         glue= {"stepdefination","hooks"},
         monochrome = true,
        // dryRun = false,
-        plugin = { "pretty"}
+        plugin = { "pretty", "html:target/cucumber-reports"}
         )
 public class testrunner {
 

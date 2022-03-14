@@ -246,6 +246,7 @@ WebDriver driver;
 		   driver.findElement(By.xpath("//*[@id='button-filter']")).click();
 		}
 
+		@SuppressWarnings("deprecation")
 		@Then("Campaign Name along with all details should appear")
 		public void campaign_Name_along_with_all_details_should_appear() throws InterruptedException {
 

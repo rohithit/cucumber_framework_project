@@ -21,3 +21,14 @@ Feature: Admin check login Functionality
     Examples: 
       | username | password  |
       | admin    | Admin@123 |
+
+  @editManufacturer
+  Scenario Outline: Edit
+    Given User clicks  on the edit button
+    When User edits the information "<m_name>" "<seo_url>" "<sort_order>"
+    And Clicks on save button
+    Then Success message is displayed and edit is confirmed
+
+    Examples: 
+      | m_name | seo_url                   | sort_order |
+      | Techn  | https://www.amazon.in/    |         14 |

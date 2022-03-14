@@ -3,6 +3,7 @@ package stepdefination;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import cucumber.api.java.en.*;
@@ -11,6 +12,7 @@ import junit.framework.Assert;
 public class StepdefinationManufacturer {
 	WebDriver driver;
 	private String Dashboard;
+	private String mm_name;
 	@SuppressWarnings("deprecation")
 	@Given("User launch chrome browser")
 	public void user_launch_chrome_browser() {
@@ -224,6 +226,7 @@ public class StepdefinationManufacturer {
 		    Assert.assertEquals(expect, fetched);
 	   }
 
+	@SuppressWarnings("deprecation")
 	@Then("I want to get the validation message")
 	public void i_want_to_get_the_validation_message() throws InterruptedException {
 		boolean expect= true;
@@ -245,8 +248,92 @@ public class StepdefinationManufacturer {
 	    String expected = "CloudTail India Pvt LTD";
 	    Assert.assertEquals(expected, actual);
 	    Thread.sleep(2000);
-	    driver.close();
+	    
    }
+	@Given("User clicks  on the edit button")
+	public void user_clicks_on_the_edit_button() {
+		try
+		{
+			
+		driver.findElement(By.xpath("//*[@id='form-manufacturer']/div/table/tbody/tr[23]/td[4]/a")).click();
+		}
+	
+		catch(Exception e)
+		{
+		System.out.println("Error "+e+" in User clicks  on the edit button block");
+		}
+		
+	}
+
+	@When("User edits the information {string} {string} {string}")
+	public void user_edits_the_information(String m_name, String seo_url, String sort_order) {
+	 
+		try
+		{
+			WebElement element=driver.findElement(By.id("input-name"));
+			element.clear();
+			element.sendKeys(m_name);
+			
+			
+			element =driver.findElement(By.id("input-keyword"));
+		    element.clear();
+		    element.sendKeys(seo_url);
+		    
+		    element= driver.findElement(By.id("input-sort-order"));
+		    element.clear();
+		    element.sendKeys(sort_order);
+		    mm_name=m_name;
+		}
+		catch(Exception e)
+		{
+			System.out.println("Error "+e+" in User edits the information {string} {string} {string} block");
+		}
+		
+	    
+	}
+
+	@When("Clicks on save button")
+	public void clicks_on_save_button() {
+		try
+		{
+			String actual= driver.findElement(By.xpath("//div[@class='alert alert-success']")).getText();
+		    String expected="Success: You have modified manufacturers!\n×";
+		    Assert.assertEquals(expected, actual);
+		    
+		    
+		    actual= driver.findElement(By.xpath("//*[text()='"+mm_name+"']")).getText();
+		    expected=mm_name;
+		    Assert.assertEquals(expected, actual);
+		}
+		catch(Exception e)
+		{
+			System.out.println("Error "+e+" in Success message is displayed and edit is confirmed block");
+		}
+	    
+	    
+	}
+
+	@Then("Success message is displayed and edit is confirmed")
+	public void success_message_is_displayed_and_edit_is_confirmed() {
+		try
+		{
+			String actual= driver.findElement(By.xpath("//div[@class='alert alert-success']")).getText();
+		    String expected="Success: You have modified manufacturers!\n×";
+		    Assert.assertEquals(expected, actual);
+		    
+		    
+		    actual= driver.findElement(By.xpath("//*[text()='"+mm_name+"']")).getText();
+		    expected=mm_name;
+		    Assert.assertEquals(expected, actual);
+		}
+		catch(Exception e)
+		{
+			System.out.println("Error "+e+" in Success message is displayed and edit is confirmed block");
+		}
+	}
+
+
+	
 
 
 
